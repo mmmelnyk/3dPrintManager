@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3dPrintManager.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="3d printer monitoring"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+            <Label
+                x:Name="DataLabel"
+                Text="Waiting for data..."
+                FontFamily="Arial"
+                FontSize="18"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Image Source="fan.png" HeightRequest="24" WidthRequest="24" VerticalOptions="Center" Margin="0,0,10,0"/>
+                <Label Text="Fan" VerticalOptions="Center" Margin="0,0,10,0"/>
+                <Switch
+                    x:Name="FanSwitch"
+                    Toggled="OnFanToggled"
+                    HorizontalOptions="Start" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Image Source="led.png" HeightRequest="24" WidthRequest="24" VerticalOptions="Center" Margin="0,0,10,0"/>
+                <Label Text="LED" VerticalOptions="Center" Margin="0,0,10,0"/>
+                <Switch
+                    x:Name="LedSwitch"
+                    Toggled="OnLedToggled"
+                    HorizontalOptions="Start" />
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
