@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("3dPrintManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+527ec556000be18c1fbda792556c7d0fab753dbb")]
 [assembly: System.Reflection.AssemblyProductAttribute("3dPrintManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("3dPrintManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

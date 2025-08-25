@@ -1,1 +1,0 @@
--v --force --timestamp=none --sign - --entitlements /Users/mykola/repos/enclosures-manager/3dPrintManager/obj/Debug/net9.0-maccatalyst/maccatalyst-arm64/Entitlements.xcent /Users/mykola/repos/enclosures-manager/3dPrintManager/bin/Debug/net9.0-maccatalyst/maccatalyst-arm64/3dPrintManager.app
