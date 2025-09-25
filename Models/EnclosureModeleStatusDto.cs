@@ -2,8 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace _3dPrintManager.Models;
 
-public class ModuleData
+public class EnclosureModuleStatusDto
 {
+    [JsonIgnore]
+    public string Ip { get; set; }
+
     [JsonPropertyName("moduleName")]
     public string ModuleName { get; set; }
 
@@ -16,7 +19,6 @@ public class ModuleData
     [JsonPropertyName("fanStatus")]
     public bool FanOn { get; set; }
 
-    [JsonPropertyName("ledOn")]
-    [JsonIgnore]
+    [JsonPropertyName("ledStatus")]
     public bool LedOn { get; set; }
 }

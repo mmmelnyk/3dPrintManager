@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:_3dPrintManager.Views"
              x:Class="_3dPrintManager.MainPage">
 
     <ScrollView>
@@ -16,6 +17,7 @@
                 Text="Waiting for data..."
                 FontFamily="Arial"
                 FontSize="18"/>
+            <!-- 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
                 <Image Source="fan.png" HeightRequest="24" WidthRequest="24" VerticalOptions="Center" Margin="0,0,10,0"/>
                 <Label Text="Fan" VerticalOptions="Center" Margin="0,0,10,0"/>
@@ -31,8 +33,19 @@
                     x:Name="LedSwitch"
                     Toggled="OnLedToggled"
                     HorizontalOptions="Start" />
-            </StackLayout>
+            </StackLayout> -->
+
+            <CollectionView ItemsSource="{Binding EnclosureModuleStatusDtos}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:PrinterView
+                            CardTitle="{Binding ModuleName}"
+                            CardDescription="{Binding Temperature, StringFormat='Temperature: {0}°C'}"
+                            CardColor="DarkGray"
+                            BorderColor="White" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

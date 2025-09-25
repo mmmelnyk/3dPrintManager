@@ -1,22 +1,34 @@
 ﻿using System.Text.Json;
+using System.Collections.ObjectModel;
 using _3dPrintManager.Models;
 
 namespace _3dPrintManager;
 
 public partial class MainPage : ContentPage
 {
-    private bool _fanOn = false;
-    private bool _ledOn = false;
-    private bool _isInitializing = false;
+    public List<EnclosureModule> enclosureModules;
+
+    private ObservableCollection<EnclosureModuleStatusDto> _enclosureModuleStatusDtos =
+        new ObservableCollection<EnclosureModuleStatusDto>();
+
+    public ObservableCollection<EnclosureModuleStatusDto> EnclosureModuleStatusDtos
+    {
+        get => _enclosureModuleStatusDtos;
+        set { _enclosureModuleStatusDtos = value; OnPropertyChanged(); }
+    }
 
     public MainPage()
     {
         InitializeComponent();
+        BindingContext = this;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        // todo: load ModuleData from db
+        enclosureModules = [new EnclosureModule() { Ip = "http://192.168.31.73", EnclosedPrinterModel = "Bambu Lab A1"}, new EnclosureModule() { Ip = "http://192.168.31.73", EnclosedPrinterModel = "Creality CR 10 SE"}];
+        DataLabel.Text = "testing 2";
         await LoadDataAsync();
     }
 
@@ -24,44 +36,53 @@ public partial class MainPage : ContentPage
     {
         try
         {
+            if (EnclosureModuleStatusDtos == null)
+                EnclosureModuleStatusDtos = new ObservableCollection<EnclosureModuleStatusDto>();
+
+            EnclosureModuleStatusDtos.Clear();
+
             using var httpClient = new HttpClient();
-            var response = await httpClient.GetStringAsync("http://192.168.31.89");
-            Console.WriteLine(response);
-            var data = JsonSerializer.Deserialize<ModuleData>(response);
-            if (data != null)
+            foreach (var module in enclosureModules)
             {
-                _fanOn = data.FanOn;
-                _ledOn = data.LedOn;
-                _isInitializing = true;
-                FanSwitch.IsToggled = data.FanOn;
-                LedSwitch.IsToggled = data.LedOn;
-                _isInitializing = false;
-                DataLabel.Text = $"Printer: {data.ModuleName} \nTemperature: {data.Temperature}°C\nHumidity: {data.Humidity}%";
+                try
+                {
+                    var response = await httpClient.GetStringAsync(module.Ip);
+                    Console.WriteLine(response);
+                    DataLabel.Text = response; // or DataLabel.Text += response + "\n";
+                    var data = JsonSerializer.Deserialize<EnclosureModuleStatusDto>(response);
+                    if (data != null)
+                    {
+                        EnclosureModuleStatusDtos.Add(data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error fetching from {module.Ip}: {ex.Message}");
+                    DataLabel.Text = $"Error: {ex.Message}";
+                }
             }
-            else
-                DataLabel.Text = "Failed to parse data.";
         }
         catch (Exception ex)
         {
-            DataLabel.Text = $"Error: {ex.Message}";
+            DataLabel.Text = $"General error: {ex.Message}";
         }
     }
-
-    private async void OnFanToggled(object? sender, EventArgs e)
-    {
-        if (_isInitializing) return;
-        _fanOn = !_fanOn;
-        using var httpClient = new HttpClient();
-        var request = $"http://192.168.31.89/fan-relay?on={_fanOn.ToString().ToLower()}";
-        var response = await httpClient.GetStringAsync(request);
-    }
+ 
+    // private async void OnFanToggled(object? sender, EventArgs e)
+    // {
+    //     if (_isInitializing) return;
+    //     _fanOn = !_fanOn;
+    //     using var httpClient = new HttpClient();
+    //     var request = $"{baseUrl}/fan-relay?on={_fanOn.ToString().ToLower()}";
+    //     var response = await httpClient.GetStringAsync(request);
+    // }
     
-    private async void OnLedToggled(object? sender, EventArgs e)
-    {
-        if (_isInitializing) return;
-        _ledOn = !_ledOn;
-        using var httpClient = new HttpClient();
-        var request = $"http://192.168.31.89/led-relay?on={_ledOn.ToString().ToLower()}";
-        var response = await httpClient.GetStringAsync(request);
-    }
+    // private async void OnLedToggled(object? sender, EventArgs e)
+    // {
+    //     if (_isInitializing) return;
+    //     _ledOn = !_ledOn;
+    //     using var httpClient = new HttpClient();
+    //     var request = $"{baseUrl}/led-relay?on={_ledOn.ToString().ToLower()}";
+    //     var response = await httpClient.GetStringAsync(request);
+    // }
 }
