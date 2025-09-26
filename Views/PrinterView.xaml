@@ -7,7 +7,9 @@
         BackgroundColor="{Binding CardColor, Source={x:Reference this}}"
         Stroke="{Binding BorderColor, Source={x:Reference this}}"
         StrokeThickness="2"
-        Padding="10">
+        Padding="10"
+        Margin="10"
+        StrokeShape="RoundRectangle 20,20,20,20">
         <VerticalStackLayout Spacing="8">
             <Label Text="{Binding ModuleName, Source={x:Reference this}}" FontAttributes="Bold" FontSize="18"/>
             <Label Text="{Binding EnclosureTemperature, Source={x:Reference this}}" FontSize="14"/>
