@@ -17,31 +17,16 @@
                 Text="Waiting for data..."
                 FontFamily="Arial"
                 FontSize="18"/>
-            <!-- 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                <Image Source="fan.png" HeightRequest="24" WidthRequest="24" VerticalOptions="Center" Margin="0,0,10,0"/>
-                <Label Text="Fan" VerticalOptions="Center" Margin="0,0,10,0"/>
-                <Switch
-                    x:Name="FanSwitch"
-                    Toggled="OnFanToggled"
-                    HorizontalOptions="Start" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                <Image Source="led.png" HeightRequest="24" WidthRequest="24" VerticalOptions="Center" Margin="0,0,10,0"/>
-                <Label Text="LED" VerticalOptions="Center" Margin="0,0,10,0"/>
-                <Switch
-                    x:Name="LedSwitch"
-                    Toggled="OnLedToggled"
-                    HorizontalOptions="Start" />
-            </StackLayout> -->
-
             <CollectionView ItemsSource="{Binding EnclosureModuleStatusDtos}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <controls:PrinterView
                             ModuleName="{Binding ModuleName}"
+                            Ip="{Binding Ip}"
                             EnclosureTemperature="{Binding Temperature, StringFormat='Temperature: {0}°C'}"
                             EnclosureHumidity="{Binding Humidity, StringFormat='Humidity: {0}%'}"
+                            LedOn="{Binding LedOn}"
+                            FanOn="{Binding FanOn}"
                             CardColor="DarkGray"
                             BorderColor="White" />
                     </DataTemplate>

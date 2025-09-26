@@ -49,6 +49,7 @@ public partial class MainPage : ContentPage
                     var data = JsonSerializer.Deserialize<EnclosureModuleStatusDto>(response);
                     if (data != null)
                     {
+                        data.Ip = module.Ip;
                         EnclosureModuleStatusDtos.Add(data);
                     }
                 }
@@ -65,22 +66,4 @@ public partial class MainPage : ContentPage
             DataLabel.Text = $"General error: {ex.Message}";
         }
     }
- 
-    // private async void OnFanToggled(object? sender, EventArgs e)
-    // {
-    //     if (_isInitializing) return;
-    //     _fanOn = !_fanOn;
-    //     using var httpClient = new HttpClient();
-    //     var request = $"{baseUrl}/fan-relay?on={_fanOn.ToString().ToLower()}";
-    //     var response = await httpClient.GetStringAsync(request);
-    // }
-    
-    // private async void OnLedToggled(object? sender, EventArgs e)
-    // {
-    //     if (_isInitializing) return;
-    //     _ledOn = !_ledOn;
-    //     using var httpClient = new HttpClient();
-    //     var request = $"{baseUrl}/led-relay?on={_ledOn.ToString().ToLower()}";
-    //     var response = await httpClient.GetStringAsync(request);
-    // }
 }
