@@ -27,8 +27,7 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
         // todo: load ModuleData from db
-        enclosureModules = [new EnclosureModule() { Ip = "http://192.168.31.73", EnclosedPrinterModel = "Bambu Lab A1"}, new EnclosureModule() { Ip = "http://192.168.31.73", EnclosedPrinterModel = "Creality CR 10 SE"}];
-        DataLabel.Text = "testing 2";
+        enclosureModules = [new EnclosureModule() { Ip = "http://192.168.31.73", EnclosedPrinterModel = "Bambu Lab A1"}, new EnclosureModule() { Ip = "http://192.168.31.147", EnclosedPrinterModel = "Creality CR 10 SE"}];
         await LoadDataAsync();
     }
 
@@ -47,8 +46,6 @@ public partial class MainPage : ContentPage
                 try
                 {
                     var response = await httpClient.GetStringAsync(module.Ip);
-                    Console.WriteLine(response);
-                    DataLabel.Text = response; // or DataLabel.Text += response + "\n";
                     var data = JsonSerializer.Deserialize<EnclosureModuleStatusDto>(response);
                     if (data != null)
                     {
@@ -61,6 +58,7 @@ public partial class MainPage : ContentPage
                     DataLabel.Text = $"Error: {ex.Message}";
                 }
             }
+            DataLabel.Text = "";
         }
         catch (Exception ex)
         {

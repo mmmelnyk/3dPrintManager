@@ -2,8 +2,9 @@ namespace _3dPrintManager.Views
 {
     public partial class PrinterView : ContentView
     {
-        public static readonly BindableProperty CardTitleProperty = BindableProperty.Create(nameof(CardTitle), typeof(string), typeof(PrinterView), string.Empty);
-        public static readonly BindableProperty CardDescriptionProperty = BindableProperty.Create(nameof(CardDescription), typeof(string), typeof(PrinterView), string.Empty);
+        public static readonly BindableProperty ModuleNameProperty = BindableProperty.Create(nameof(ModuleName), typeof(string), typeof(PrinterView), string.Empty);
+        public static readonly BindableProperty EnclosureTemperatureProperty = BindableProperty.Create(nameof(EnclosureTemperature), typeof(string), typeof(PrinterView), string.Empty);
+        public static readonly BindableProperty EnclosureHumidityProperty = BindableProperty.Create(nameof(EnclosureHumidity), typeof(string), typeof(PrinterView), string.Empty);
 
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(
             nameof(BorderColor),
@@ -35,20 +36,26 @@ namespace _3dPrintManager.Views
             set => SetValue(IconImageSourceProperty, value);
         }
 
-        public string CardTitle
+        public string ModuleName
         {
-            get => (string)GetValue(PrinterView.CardTitleProperty);
-            set => SetValue(PrinterView.CardTitleProperty, value);
+            get => (string)GetValue(PrinterView.ModuleNameProperty);
+            set => SetValue(PrinterView.ModuleNameProperty, value);
         }
         public Color BorderColor
         {
             get => (Color)GetValue(PrinterView.BorderColorProperty);
             set => SetValue(PrinterView.BorderColorProperty, value);
         }
-        public string CardDescription
+        public string EnclosureTemperature
         {
-            get => (string)GetValue(PrinterView.CardDescriptionProperty);
-            set => SetValue(PrinterView.CardDescriptionProperty, value);
+            get => (string)GetValue(PrinterView.EnclosureTemperatureProperty);
+            set => SetValue(PrinterView.EnclosureTemperatureProperty, value);
+        }
+
+        public string EnclosureHumidity
+        {
+            get => (string)GetValue(PrinterView.EnclosureHumidityProperty);
+            set => SetValue(PrinterView.EnclosureHumidityProperty, value);
         }
 
         public Color CardColor

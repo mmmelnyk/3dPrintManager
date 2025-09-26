@@ -9,7 +9,7 @@
             Padding="30,0"
             Spacing="25">
             <Label
-                Text="3d printer monitoring"
+                Text="Connected enclosures"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
             <Label
@@ -39,8 +39,9 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <controls:PrinterView
-                            CardTitle="{Binding ModuleName}"
-                            CardDescription="{Binding Temperature, StringFormat='Temperature: {0}°C'}"
+                            ModuleName="{Binding ModuleName}"
+                            EnclosureTemperature="{Binding Temperature, StringFormat='Temperature: {0}°C'}"
+                            EnclosureHumidity="{Binding Humidity, StringFormat='Humidity: {0}%'}"
                             CardColor="DarkGray"
                             BorderColor="White" />
                     </DataTemplate>
